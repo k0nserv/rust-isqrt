@@ -2,7 +2,7 @@
 Fast Inverse Square Root benchmark
 =================================
 
-This repository contains a benchmark between different implementations of the [Fast Inverse Square Root](https://en.wikipedia.org/wiki/Fast_inverse_square_root) in Rust. The methods compared are using `std::mem::compute` and pointer casts.
+This repository contains a benchmark between different implementations of the [Fast Inverse Square Root](https://en.wikipedia.org/wiki/Fast_inverse_square_root) in Rust. The methods compared are using `std::mem::compute` and pointer casts. An implementation using `f64::sqrt` is also shown for reference.
 
 This uses [benchmark tests](https://doc.rust-lang.org/book/benchmark-tests.html) which are at the time of writing not stable so to run them you need a nightly build of rust. Installing and using nightly builds is covered in the [rustup docs](https://github.com/rust-lang-nursery/rustup.rs#working-with-nightly-rust);
 
@@ -33,11 +33,13 @@ Results
 #### 100 million iterations
 
 ```
-running 2 tests
-test tests::bench_isqrt_no_transmute ... bench: 274,405,073 ns/iter (+/- 11,466,661)
-test tests::bench_isqrt_transmute    ... bench: 272,768,130 ns/iter (+/- 7,655,082)
+running 3 tests
+test tests::bench_isqrt_no_transmute ... bench: 282,948,645 ns/iter (+/- 49,056,853)
+test tests::bench_isqrt_sqrt         ... bench: 965,164,677 ns/iter (+/- 20,426,067)
+test tests::bench_isqrt_transmute    ... bench: 273,885,037 ns/iter (+/- 15,464,136)
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
+test result: ok. 0 passed; 0 failed; 0 ignored; 3 measured
+
 ```
 
 
@@ -47,11 +49,12 @@ test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
 #### 10 million iterations
 
 ````
-running 2 tests
-test tests::bench_isqrt_no_transmute ... bench:  27,098,173 ns/iter (+/- 1,584,364)
-test tests::bench_isqrt_transmute    ... bench:  27,409,085 ns/iter (+/- 2,957,428)
+running 3 tests
+test tests::bench_isqrt_no_transmute ... bench:  28,101,823 ns/iter (+/- 3,276,136)
+test tests::bench_isqrt_sqrt         ... bench:  96,460,162 ns/iter (+/- 2,735,941)
+test tests::bench_isqrt_transmute    ... bench:  27,624,626 ns/iter (+/- 2,690,027)
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 2 measured
+test result: ok. 0 passed; 0 failed; 0 ignored; 3 measured
 
 ````
 

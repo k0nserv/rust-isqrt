@@ -27,6 +27,10 @@ fn isqrt_no_transmute(value: f64) -> f64 {
     y
 }
 
+fn isqrt_sqrt(value: f64) -> f64 {
+    1.0 / value.sqrt()
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -42,22 +46,29 @@ mod tests {
         }
     }
 
-    #[bench]
-    fn bench_isqrt_transmute(b: &mut Bencher) {
-        b.iter(|| {
+
+    macro_rules! test_method {
+        ($method: ident, $bencher: ident) => (
+        $bencher.iter(|| {
                    let n = test::black_box(num_iterations());
 
-                   (0..n).fold(0.0, |accum, i| (accum as f64) + isqrt_transmute(i as f64))
+                   (0..n).fold(0.0, |accum, i| (accum as f64) + $method(i as f64))
                });
+        );
+    }
+
+    #[bench]
+    fn bench_isqrt_transmute(b: &mut Bencher) {
+        test_method!(isqrt_transmute, b);
     }
 
     #[bench]
     fn bench_isqrt_no_transmute(b: &mut Bencher) {
-        b.iter(|| {
-                   let n = test::black_box(num_iterations());
+        test_method!(isqrt_no_transmute, b);
+    }
 
-                   (0..n).fold(0.0,
-                               |accum, i| (accum as f64) + isqrt_no_transmute(i as f64))
-               });
+    #[bench]
+    fn bench_isqrt_sqrt(b: &mut Bencher) {
+        test_method!(isqrt_sqrt, b);
     }
 }
