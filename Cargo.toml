@@ -1,0 +1,6 @@
+[package]
+name = "isqrt"
+version = "0.1.0"
+authors = ["Hugo Tunius <hugo.tunius@gmail.com>"]
+
+[dependencies]
