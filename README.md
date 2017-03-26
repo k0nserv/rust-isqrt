@@ -28,6 +28,8 @@ Results
 
 ### Macbook pro 13" mid 2012 2.5Ghz i5 2 cores
 
+Using `rustc 1.17.0-nightly (49c67bd63 2017-03-24)`
+
 
 
 #### 100 million iterations
